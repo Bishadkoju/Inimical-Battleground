@@ -2,7 +2,7 @@
 #include<iostream>
 int main()
 {
-	Game game(1910,1050);
+	Game game(1200,800);
 	game.run();
 	return 0;
 }

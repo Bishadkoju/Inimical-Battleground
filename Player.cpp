@@ -41,9 +41,11 @@ Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),i
 	animations[int(AnimationIndex::flyingleft)] = Animation(0, 152, 95, 150, "left");
 	animations[int(AnimationIndex::walkingright)] = Animation(0, 0, 95, 150, "right");
 	animations[int(AnimationIndex::walkingleft)] = Animation(0, 0, 95, 150, "left");
-	//animations[int(AnimationIndex::standing)] = Animation(0, 0, 95, 150, "left", noKeyWasPressed);
-	lhand.loadFromFile("pic/lhand.png");
-	rhand.loadFromFile("pic/rhand.png");
+	animations[int(AnimationIndex::standingright)] = Animation(0, 0, 95, 150, "stillright");
+	animations[int(AnimationIndex::standingleft)] = Animation(0, 167, 95, 150, "stillleft");
+	lhand.loadFromFile("pic/rhandinverse.png");
+	rhand.loadFromFile("pic/rhand.png");//animations[int(AnimationIndex::standing)] = Animation(0, 0, 95, 150, "left", noKeyWasPressed);
+	
 	playerHandLeft.setTexture(lhand);
 	playerHandRight.setTexture(rhand);
 	/*spritePlayer.setScale(0.5, 0.5);
@@ -57,20 +59,37 @@ Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),i
 void Player::update(sf::Time deltaTime)
 {
 	
-
 	this->deltaTime = deltaTime;
 
-	
+	//std::cout << mousePosition.x << "," << mousePosition.y << "||"<<mouseDirection.x << "," << mouseDirection.y << std::endl;
 	isOnGround = currentVelocity.y == 0;
 	noKeyWasPressed = !(isPressedLeft || isPressedRight || isPressedUp);
 	if (isOnGround) {
 		movePlayer(maxGroundVelocity, groundDampingConstant);
-		std::cout << "Ground" << std::endl;
+		//std::cout << "Ground" << std::endl;
 		}
 	else {
 		movePlayer(maxAirVelocity, airDampingConstant);
-		std::cout << "Air"<< std::endl;
+		//std::cout << "Air"<< std::endl;
 	}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && localTime.getElapsedTime().asSeconds()>0.4f) {
+		if (facingLeft == false && facingRight == true) {
+			bullets.emplace_back(Bullet(playerHandRight.getPosition(), mouseDirection, 2500, 50));
+		}
+		else {
+			sf::Vector2f temp = playerHandLeft.getPosition();
+			temp.x=playerHandLeft.getPosition().x ;
+			bullets.emplace_back(Bullet(temp, mouseDirection, 2500, 50));
+		}
+		localTime.restart();
+
+	}
+		for (auto& bullet : bullets)
+		{
+			bullet.update(deltaTime);
+
+		}
+	
 
 	
 
@@ -145,17 +164,30 @@ float Player::interpolateVelocity(float target, float current, float dampingFact
 
 void Player::draw(sf::RenderWindow& window)
 {
+	for (auto& bullet : bullets)
+	{
+		bullet.draw(window);
+	}
+
 	if (facingLeft) {
 		curAnimation = AnimationIndex::walkingleft;
+		if (noKeyWasPressed)
+		{
+			curAnimation = AnimationIndex::standingleft;
+		}
 	}
 	if (facingRight) {
 		curAnimation = AnimationIndex::walkingright;
+		if (noKeyWasPressed)
+		{
+			curAnimation = AnimationIndex::standingright;
+		}
 	}
 	if (!isOnGround) {
-		if (isPressedLeft ||(isPressedUp && facingLeft)) {
+		if (isPressedLeft || (isPressedUp && facingLeft)) {
 			curAnimation = AnimationIndex::flyingleft;
 		}
-		if (isPressedRight ||(isPressedUp && facingRight)) {
+		if (isPressedRight || (isPressedUp && facingRight)) {
 			curAnimation = AnimationIndex::flyingright;
 		}
 	}
@@ -170,7 +202,7 @@ void Player::draw(sf::RenderWindow& window)
 
 	bar.setSize(sf::Vector2f(500, 50));
 	bar.setFillColor(sf::Color(100, 250, 50));
-	bar.setPosition(800, 500);
+	bar.setPosition(0, 500);
 	window.draw(bar);
 
 	arena_blocks[0].setFillColor(sf::Color(100, 250, 50));
@@ -183,12 +215,19 @@ void Player::draw(sf::RenderWindow& window)
 	window.draw(spritePlayer);
 	if (facingLeft)
 	{
-		playerHandLeft.setPosition(getCoordinate().x - 40, getCoordinate().y + 60);
+		/*playerHandLeft.setOrigin({
+			playerHandLeft.getGlobalBounds().width / 2 + playerHandLeft.getOrigin().x,
+			playerHandLeft.getGlobalBounds().height / 2 + playerHandLeft.getOrigin().y
+			});*/
+
+
+		playerHandLeft.setPosition(getCoordinate().x - 40 + playerHandLeft.getLocalBounds().width,
+			getCoordinate().y + 60 + playerHandLeft.getLocalBounds().height);
 		window.draw(playerHandLeft);
 	}
 	if (!facingLeft)
 	{
-		playerHandRight.setPosition(getCoordinate().x + 20, getCoordinate().y + 60);
+		playerHandRight.setPosition(getCoordinate().x + 20, getCoordinate().y + 63);
 		window.draw(playerHandRight);
 	}
 
@@ -237,22 +276,6 @@ void Player::handlePlayerCollision(sf::RectangleShape other)
 	}
 }
 
-void Player::evaluateMouseDirection(sf::RenderWindow& window)
-{
-
-	playerCenter = sf::Vector2f(coordinate);
-
-	//playerHandRight.setPosition(getCoordinate().x + 10.f, getCoordinate().y + 20.f);
-
-	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
-	aimDir = mousePosition - playerCenter;
-	aimDir = aimDir / sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
-	float pi = 3.14159265f;
-	float deg = atan2(aimDir.y, aimDir.x) * 180 / pi;
-	playerHandRight.setRotation(deg);
-
-}
-
 void Player::movePlayer(sf::Vector2f maxVelocity, float dampingConstant)
 {
 
@@ -285,16 +308,41 @@ void Player::movePlayer(sf::Vector2f maxVelocity, float dampingConstant)
 
 
 
+
 void Player::setBulletDir(sf::RenderWindow& window)
 {
-	playerCenter = sf::Vector2f(coordinate);
+	playerCenter = playerHandRight.getPosition();
 
 	//playerHandRight.setPosition(getCoordinate().x + 10.f, getCoordinate().y + 20.f);
 
 	mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
-	aimDir = mousePosition - playerCenter;
-	aimDir = aimDir / sqrt(pow(aimDir.x, 2) + pow(aimDir.y, 2));
+	mouseDirection = mousePosition - playerCenter;
+	mouseDirection = mouseDirection / sqrt(pow(mouseDirection.x, 2) + pow(mouseDirection.y, 2));
 	float pi = 3.14159265f;
-	float deg = atan2(aimDir.y, aimDir.x) * 180 / pi;
-	playerHandRight.setRotation(deg);
+	float deg = atan2(mouseDirection.y, mouseDirection.x) * 180 / pi;
+	/*playerHandRight.setRotation(deg);
+	if (deg < -90 || deg>90)
+	{
+		facingLeft = true;
+		facingRight = false;
+		playerHandLeft.setRotation(deg);
+	}*/
+	if (facingRight)
+	{
+		playerHandRight.setRotation(deg);
+		if (deg < -90 || deg>90)
+		{
+			facingLeft = true;
+			facingRight = false;
+		}
+	}
+	if (facingLeft)
+	{
+		playerHandLeft.setRotation(deg);
+		if (!(deg < -90 || deg>90))
+		{
+			facingLeft = false;
+			facingRight = true;
+		}
+	}
 }

@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -158,13 +159,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="G:\Inimical-Battleground\pic\a.png" />
     <Image Include="pic\army1.png" />
-    <Image Include="pic\earth.png" />
     <Image Include="pic\faceleft.png" />
     <Image Include="pic\faceright.png" />
     <Image Include="pic\right3.png" />

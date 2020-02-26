@@ -33,6 +33,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -47,12 +50,12 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="pic\army1.png">
-      <Filter>pic</Filter>
-    </Image>
-    <Image Include="pic\earth.png">
       <Filter>pic</Filter>
     </Image>
     <Image Include="pic\right3.png">
@@ -62,6 +65,9 @@
       <Filter>pic</Filter>
     </Image>
     <Image Include="pic\faceright.png">
+      <Filter>pic</Filter>
+    </Image>
+    <Image Include="G:\Inimical-Battleground\pic\a.png">
       <Filter>pic</Filter>
     </Image>
   </ItemGroup>

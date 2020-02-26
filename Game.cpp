@@ -1,5 +1,6 @@
 #include "Game.h"
-Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical BattleGrounds",sf::Style::Fullscreen)
+Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical BattleGrounds")
+//Game::Game(int width, int height) : window(sf::VideoMode(width, height), "Inimical BattleGrounds", sf::Style::Fullscreen)
 {
 	m_height = height;
 	m_width=width;

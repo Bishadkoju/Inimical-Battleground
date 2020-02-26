@@ -5,7 +5,6 @@ class Collider
 {
 public:
 	Collider(sf::RectangleShape& body);
-	Collider();
 	bool checkCollision(sf::RectangleShape& other);
 	sf::FloatRect getGlobalBounds();
 	sf::FloatRect intersection;

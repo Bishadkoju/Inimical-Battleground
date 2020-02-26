@@ -8,7 +8,7 @@
 #include<cmath>
 #include "Collider.h"
 #include "Animation.h"
-
+#include "Bullet.h"
 class Player
 {
 private:
@@ -28,6 +28,9 @@ private:
 	bool isOnGround;
 	sf::RectangleShape bar;
 	sf::RectangleShape arena_blocks[2];
+	std::vector<Bullet> bullets;
+
+	sf::Clock localTime;
 	
 	bool facingRight, facingLeft;
 	sf::VideoMode window;
@@ -42,15 +45,17 @@ private:
 		flyingleft,
 		walkingright,
 		flyingright,
-		standing,
+		standingright,
+		standingleft,
 		maxCount
 	};
+
 	Animation animations[int(AnimationIndex::maxCount)];
 	AnimationIndex curAnimation = AnimationIndex::walkingright;
 	bool noKeyWasPressed;
 
 	void handlePlayerCollision(sf::RectangleShape other);
-	void evaluateMouseDirection(sf::RenderWindow& window);
+	
 	void movePlayer(sf::Vector2f maxVelocity, float dampingConstant);
 	
 public:

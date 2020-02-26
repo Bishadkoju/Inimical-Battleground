@@ -2,6 +2,8 @@
 
 Collider::Collider(sf::RectangleShape& body):body(body){}
 
+
+
 bool Collider::checkCollision(sf::RectangleShape & other)
 {
 	//this->other = other;
