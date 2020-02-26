@@ -1,1 +1,16 @@
-﻿  final Inimical BattleGround.vcxproj -> D:\Bishad\Creation Center\C++\final Inimical BattleGround\Debug\final Inimical BattleGround.exe
+﻿  Animation.cpp
+  Arena.cpp
+  block.cpp
+  Collider.cpp
+  Game.cpp
+  Player.cpp
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.cpp(30,23): warning C4305: '=': truncation from 'double' to 'float'
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.cpp(116,29): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Source.cpp
+  Generating Code...
+  LINK : D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Debug\final Inimical BattleGround.exe not found or not built by the last incremental link; performing full link
+  final Inimical BattleGround.vcxproj -> D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Debug\final Inimical BattleGround.exe
