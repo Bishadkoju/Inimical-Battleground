@@ -6,7 +6,6 @@
 #include<SFML/Network.hpp>
 #include<SFML/Window.hpp>
 #include"Player.h"
-#include"Arena.h"
 class Game
 {
 protected:
