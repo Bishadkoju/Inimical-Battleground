@@ -20,7 +20,8 @@ void Bullet::update(sf::Time deltaTime)
 
 void Bullet::draw(sf::RenderWindow& window)
 {
-	body.setSize(sf::Vector2f(10.f,10.f));
+	body.setSize(sf::Vector2f(5.f,5.f));
 	body.setFillColor(sf::Color(255, 0, 0, 255));
+	body.setPosition(coordinate);
 	window.draw(body);
 }

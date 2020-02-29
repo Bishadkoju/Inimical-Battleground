@@ -24,6 +24,11 @@ Animation::Animation(int startingX, int startingY, int width, int height, std::s
 	}
 	if (dir == "stillright")
 	{
+		/*texture.loadFromFile("pic/avatar/a3standingstill.png");
+		for (int i = 0; i < nFrames; i++)
+		{
+			frames[i] = { startingX + i * width,startingY,width,startingY + height };
+		}*/
 		texture.loadFromFile("pic/avatar/a3standingstill.png");
 		for (int i = 0; i < nFrames; i++)
 		{

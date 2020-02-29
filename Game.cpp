@@ -1,7 +1,8 @@
 #include "Game.h"
-Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical BattleGrounds")
+Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical BattleGrounds",sf::Style::Fullscreen)
 //Game::Game(int width, int height) : window(sf::VideoMode(width, height), "Inimical BattleGrounds", sf::Style::Fullscreen)
 {
+	//window.setFramerateLimit(30);
 	m_height = height;
 	m_width=width;
 	texture.loadFromFile("pic/army1.png");
@@ -10,6 +11,7 @@ Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical
 
 	}
 
+	p.setArena(arena1);
 
 }
 	
@@ -32,23 +34,32 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
 	
 	if (key == sf::Keyboard::A) {
-		//p.setXVelocity(-1, isPressed);
-		p.isPressedLeft = isPressed;
-		//std::cout << "A " << isPressed << std::endl;
+	//p.isPressedLeft = isPressed;
+		userController.isPressedLeft = isPressed;
+	
 	}
 	else if (key == sf::Keyboard::D) {
-		//p.setXVelocity(1, isPressed);
-		p.isPressedRight = isPressed;
-		//std::cout << "D " << isPressed << std::endl;
+	//p.isPressedRight = isPressed;
+		userController.isPressedRight = isPressed;
 	}
+
 	if (key == sf::Keyboard::W) {
-		p.isPressedUp = isPressed;
+	//p.isPressedUp = isPressed;
+		userController.isPressedUp = isPressed;
 	}
+	
  
 }
 
 void Game::processEvents()
 {
+
+	//p.mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+	//p.isLeftMouseButtonPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+	userController.mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+	userController.isLeftMouseButtonPressed= sf::Mouse::isButtonPressed(sf::Mouse::Left);
+	userController.isRightMouseButtonPressed = sf::Mouse::isButtonPressed(sf::Mouse::Right);
+
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
@@ -75,7 +86,7 @@ void Game::processEvents()
 
 void Game::update(sf::Time deltaTime)
 {
-	p.update(deltaTime);
+	p.update(deltaTime,userController);
 	//collision();
 	
 }
@@ -83,7 +94,9 @@ void Game::update(sf::Time deltaTime)
 void Game::render()
 {
 	window.clear();
+	arena1.draw(window);
 	p.draw(window);
+
 	
 	
 	sf::Sprite sprite(texture);

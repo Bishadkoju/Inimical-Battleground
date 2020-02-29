@@ -16,6 +16,9 @@
     <Filter Include="pic">
       <UniqueIdentifier>{21b45765-5ab6-4ca2-8db3-b2d84d5aea1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="pic\avatar">
+      <UniqueIdentifier>{c3dd0e69-9c0e-4fa6-b0c7-9bb154a2ee73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -36,6 +39,12 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Arena.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playerController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -53,6 +62,12 @@
     <ClInclude Include="Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Arena.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playerController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="pic\army1.png">
@@ -68,6 +83,21 @@
       <Filter>pic</Filter>
     </Image>
     <Image Include="G:\Inimical-Battleground\pic\a.png">
+      <Filter>pic</Filter>
+    </Image>
+    <Image Include="pic\arena1.png">
+      <Filter>pic</Filter>
+    </Image>
+    <Image Include="pic\newarena.png">
+      <Filter>pic</Filter>
+    </Image>
+    <Image Include="pic\arena.png">
+      <Filter>pic</Filter>
+    </Image>
+    <Image Include="pic\newarena1.png">
+      <Filter>pic</Filter>
+    </Image>
+    <Image Include="pic\newarena2.png">
       <Filter>pic</Filter>
     </Image>
   </ItemGroup>

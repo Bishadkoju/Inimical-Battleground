@@ -151,24 +151,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Arena.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="playerController.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Arena.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="playerController.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="G:\Inimical-Battleground\pic\a.png" />
+    <Image Include="pic\arena.png" />
+    <Image Include="pic\arena1.png" />
     <Image Include="pic\army1.png" />
     <Image Include="pic\faceleft.png" />
     <Image Include="pic\faceright.png" />
+    <Image Include="pic\newarena.png" />
+    <Image Include="pic\newarena1.png" />
+    <Image Include="pic\newarena2.png" />
     <Image Include="pic\right3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
