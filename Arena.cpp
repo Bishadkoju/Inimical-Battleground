@@ -4,7 +4,7 @@ Arena::Arena()
 {
 	textureBackImag.loadFromFile("pic/newarena.png");
 	spriteBackGroundImage.setTexture(textureBackImag);
-	//spriteBackGroundImage.scale(2,1.4);
+	spriteBackGroundImage.scale(2,1.3);
 	//spriteBackGroundImage.getGlobalBounds();
 
 
@@ -17,7 +17,7 @@ Arena::Arena()
 	blocks[1].setPosition(400, 300);*/
 
 	for (int i = 0; i < noOfBlocks; i++) {
-		blocks[i].setFillColor(sf::Color(100, 250, 50));
+		blocks[i].setFillColor(sf::Color::Transparent);
 		blocks[i].setSize(sizes[i]);
 		blocks[i].setPosition(positions[i]);
 	}
@@ -27,7 +27,13 @@ Arena::Arena()
 
 void Arena::draw(sf::RenderWindow& window)
 {
-	//window.draw(spriteBackGroundImage);
+	window.draw(spriteBackGroundImage);
+	/*if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		mp.x = sf::Mouse::getPosition().x;
+		mp.y = sf::Mouse::getPosition().y;
+		std::cout << "(" << mp.x << "," << mp.y << ")" << std::endl;
+	}*/
 	for (const auto block : blocks) {
 		window.draw(block);
 		

@@ -34,7 +34,7 @@ private:
 	float fuel = 1000;
 
 	std::vector<Bullet> bullets;
-	sf::Clock localTime;
+	sf::Clock bulletClock;
 	
 	// Render Related
 	bool facingRight;
@@ -71,10 +71,16 @@ public:
 	sf::Vector2f mousePosition;
 	bool isPressedUp, isPressedLeft, isPressedRight,isCollided;
 	bool isLeftMouseButtonPressed,isRightMouseButtonPressed;
+	
 	sf::Vector2f playerCenter;
 	
-	sf::Vector2f aimDirNorm;
-	sf::Vector2f aimDir;
+	int totalBullets;
+	int bulletsPerRoundMaximum;
+	int bulletsOnRound;
+	sf::Clock reloadClock;
+	bool isReloading;
+	
+
 	void setBulletDir();
 	Player();
 	void update(sf::Time,playerController userController);

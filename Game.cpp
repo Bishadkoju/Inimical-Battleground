@@ -2,7 +2,7 @@
 Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical BattleGrounds",sf::Style::Fullscreen)
 //Game::Game(int width, int height) : window(sf::VideoMode(width, height), "Inimical BattleGrounds", sf::Style::Fullscreen)
 {
-	//window.setFramerateLimit(30);
+	//window.setFramerateLimit(120);
 	m_height = height;
 	m_width=width;
 	texture.loadFromFile("pic/army1.png");
@@ -30,7 +30,7 @@ void Game::run()
 	}
 }
 
-void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
+void Game::handleKeyboardInput(sf::Keyboard::Key key, bool isPressed)
 {
 	
 	if (key == sf::Keyboard::A) {
@@ -66,10 +66,10 @@ void Game::processEvents()
 		switch (event.type)
 		{
 		case sf::Event::KeyPressed:
-			handlePlayerInput(event.key.code, true);
+			handleKeyboardInput(event.key.code, true);
 			break;
 		case sf::Event::KeyReleased:
-			handlePlayerInput(event.key.code, false);
+			handleKeyboardInput(event.key.code, false);
 			break;
 		case sf::Event::Closed:
 			window.close();

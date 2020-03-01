@@ -1,5 +1,5 @@
-﻿  Game.cpp
-  Player.cpp
-  Source.cpp
-  Generating Code...
+﻿  Player.cpp
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.h(12,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.cpp(267,140): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.cpp(267,60): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   final Inimical BattleGround.vcxproj -> D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Debug\final Inimical BattleGround.exe

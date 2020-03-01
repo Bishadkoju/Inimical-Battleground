@@ -10,6 +10,7 @@ private:
 	float damagePoints;
 	sf::Time deltaTime;
 	sf::Vector2f coordinate;
+
 	
 public:
 	Bullet(sf::Vector2f startingCoordinate,sf::Vector2f direction,float velocity,float damagePoints);
@@ -17,6 +18,7 @@ public:
 	//void setDirection(sf::Vector2f direction);
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderWindow& window);
+	void destroy();
 
 };
 

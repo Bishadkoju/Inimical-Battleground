@@ -19,6 +19,9 @@
     <Filter Include="pic\avatar">
       <UniqueIdentifier>{c3dd0e69-9c0e-4fa6-b0c7-9bb154a2ee73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="pic\font">
+      <UniqueIdentifier>{6e221eca-cc2f-4cbf-b13c-f24821f325e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -45,6 +48,9 @@
     <ClCompile Include="playerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -66,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="playerController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -100,5 +109,25 @@
     <Image Include="pic\newarena2.png">
       <Filter>pic</Filter>
     </Image>
+    <Image Include="pic\font\exit.png">
+      <Filter>pic\font</Filter>
+    </Image>
+    <Image Include="pic\font\exit1.png">
+      <Filter>pic\font</Filter>
+    </Image>
+    <Image Include="pic\font\logo.png">
+      <Filter>pic\font</Filter>
+    </Image>
+    <Image Include="pic\font\play.png">
+      <Filter>pic\font</Filter>
+    </Image>
+    <Image Include="pic\font\play1.png">
+      <Filter>pic\font</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="pic\font\Splatch.ttf">
+      <Filter>pic\font</Filter>
+    </Font>
   </ItemGroup>
 </Project>

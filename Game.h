@@ -26,7 +26,7 @@ protected:
 public:
 	Game(int width,int height);
 	void run();
-	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+	void handleKeyboardInput(sf::Keyboard::Key key, bool isPressed);
 	void processEvents();
 	void update(sf::Time);
 	void render();

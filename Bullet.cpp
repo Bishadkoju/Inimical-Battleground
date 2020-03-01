@@ -6,6 +6,8 @@ Bullet::Bullet(sf::Vector2f startingCoordinate, sf::Vector2f direction, float ve
 	this->direction = direction;
 	this->damagePoints = damagePoints;
 	this->velocity = velocity;
+	body.setSize(sf::Vector2f(5.f, 5.f));
+	body.setFillColor(sf::Color(255, 0, 0, 255));
 }
 
 
@@ -20,8 +22,10 @@ void Bullet::update(sf::Time deltaTime)
 
 void Bullet::draw(sf::RenderWindow& window)
 {
-	body.setSize(sf::Vector2f(5.f,5.f));
-	body.setFillColor(sf::Color(255, 0, 0, 255));
-	body.setPosition(coordinate);
 	window.draw(body);
+}
+
+void Bullet::destroy()
+{
+	delete this;
 }

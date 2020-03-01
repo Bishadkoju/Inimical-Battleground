@@ -1,8 +1,10 @@
-#include"Game.h"
+
 #include<iostream>
+#include "MainMenu.h"
 int main()
 {
-	Game game(800,800);
-	game.run();
+	MainMenu menu(800, 800);
+	menu.display();
+	
 	return 0;
 }

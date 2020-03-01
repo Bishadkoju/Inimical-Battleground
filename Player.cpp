@@ -11,6 +11,13 @@ Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),i
 	/*this->arena1 = &arena1;
 	this->noOfBlocks = this->arena1->noOfBlocks;*/
 
+	totalBullets = 6;
+	bulletsPerRoundMaximum = 6;
+	bulletsOnRound = 6;
+	
+	isReloading = false;
+
+
 	coordinate.x = 200;
 	coordinate.y = 200;
 	currentVelocity.x = 0;
@@ -23,8 +30,8 @@ Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),i
 	thrustValue = 80;
 
 	texture.loadFromFile("pic/army1.png");
-	scale = 1;
-	body.setSize(sf::Vector2f(10.f, 10.f));
+	scale = 0.35;
+	body.setSize(sf::Vector2f(28.f, 50.f));
 	//body.setRotation(60.f);
 
 	groundDampingConstant = 500;
@@ -72,6 +79,7 @@ void Player::update(sf::Time deltaTime,playerController userController)
 	this->isLeftMouseButtonPressed = userController.isLeftMouseButtonPressed;
 	this->isRightMouseButtonPressed = userController.isRightMouseButtonPressed;
 	this->mousePosition = userController.mousePosition;
+	//std::cout << bulletsOnRound << " / "<< totalBullets<< std::endl;
 
 	//std::cout << mousePosition.x << "," << mousePosition.y << "||"<<mouseDirection.x << "," << mouseDirection.y << std::endl;
 	isOnGround = currentVelocity.y == 0;
@@ -86,7 +94,10 @@ void Player::update(sf::Time deltaTime,playerController userController)
 	}
 
 	setBulletDir();
-	if (isLeftMouseButtonPressed && localTime.getElapsedTime().asSeconds()>0.4f) {
+	//fire bullets
+
+
+	if (isLeftMouseButtonPressed && bulletClock.getElapsedTime().asSeconds()>0.4f && bulletsOnRound>0 && !isReloading) {
 		if (facingRight == true) {
 			bullets.emplace_back(Bullet(playerHandRight.getPosition(), mouseDirection, 1000, 50));
 		}
@@ -95,12 +106,42 @@ void Player::update(sf::Time deltaTime,playerController userController)
 			temp.x=playerHandLeft.getPosition().x ;
 			bullets.emplace_back(Bullet(temp, mouseDirection, 1000, 50));
 		}
-		localTime.restart();
+		bulletsOnRound--;
+		bulletClock.restart();
 
 	}
-		for (auto& bullet : bullets)
+	if (isRightMouseButtonPressed && (bulletsOnRound<bulletsPerRoundMaximum) && !isReloading) {
+		isReloading = true;
+		reloadClock.restart();
+	}
+		
+		
+		if(isReloading && reloadClock.getElapsedTime().asSeconds() > 1.f) {
+			int loadingBullet = bulletsPerRoundMaximum - bulletsOnRound;
+			if (totalBullets < loadingBullet) {
+				bulletsOnRound += totalBullets;
+				totalBullets =0;
+			}
+			else {
+				bulletsOnRound +=loadingBullet ;
+				totalBullets -= loadingBullet;
+			}
+			isReloading = false;
+		}
+
+
+
+
+		for (auto  &bullet : bullets)
 		{
 			bullet.update(deltaTime);
+			for (auto& block : arena1->blocks) {
+				if (bullet.body.getGlobalBounds().intersects(block.getGlobalBounds())) {
+					std::cout << "collide" << std::endl;
+					//a	delete& bullet;
+					//bullet.destroy();
+				}
+			}
 
 		}
 	
@@ -199,7 +240,7 @@ void Player::draw(sf::RenderWindow& window)
 	}
 	animations[int(curAnimation)].applySprite(spritePlayer);
 	body.setFillColor(sf::Color(100, 250, 50));
-	body.setSize(sf::Vector2f(100, 150));
+	//body.setSize(sf::Vector2f(100, 150));
 	window.draw(body);
 
 	
@@ -207,7 +248,7 @@ void Player::draw(sf::RenderWindow& window)
 
 	
 	
-	spritePlayer.setPosition(getCoordinate().x, getCoordinate().y);
+	spritePlayer.setPosition(getCoordinate().x-5, getCoordinate().y);
 	window.draw(spritePlayer);
 
 	if (!facingRight)
@@ -310,12 +351,13 @@ void Player::movePlayer(sf::Vector2f maxVelocity, float dampingConstant)
 	fuel += 60 * deltaTime.asSeconds();
 	if (fuel > 1000) fuel = 1000;
 	if (fuel < 0) fuel = 0;
-	std::cout << fuel << std::endl;
+	//std::cout << fuel << std::endl;
 
 	currentVelocity.x = interpolateVelocity(targetVelocity.x, currentVelocity.x, dampingConstant);
 	currentVelocity.y = interpolateVelocity(targetVelocity.y, currentVelocity.y, dampingConstant);
 	coordinate.x += currentVelocity.x * 5 * deltaTime.asSeconds();
 	coordinate.y += currentVelocity.y * 5 * deltaTime.asSeconds();
+	//spritePlayer.move(currentVelocity.x * 5 * deltaTime.asSeconds(), currentVelocity.y * 5 * deltaTime.asSeconds());
 	body.setPosition(coordinate);
 }
 
