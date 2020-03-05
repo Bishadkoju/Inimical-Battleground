@@ -157,6 +157,8 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Connect.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerController.cpp" />
@@ -170,6 +172,8 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Connect.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameClient.h" />
+    <ClInclude Include="GameServer.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Networking.h" />
     <ClInclude Include="Player.h" />

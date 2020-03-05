@@ -89,11 +89,11 @@ public:
 		socket.send(pack);
 	}
 	
-	void sendData(playerController player) {
+	void sendData(playerController controller) {
 	    
-		pack << player.isPressedLeft << player.isPressedRight << player.isPressedUp <<
-			player.isLeftMouseButtonPressed << player.isRightMouseButtonPressed <<
-			player.mousePosition.x << player.mousePosition.y;
+		pack << controller.isPressedLeft << controller.isPressedRight << controller.isPressedUp <<
+			controller.isLeftMouseButtonPressed << controller.isRightMouseButtonPressed <<
+			controller.mousePosition.x << controller.mousePosition.y;
 		socket.send(pack);
 	}
 	playerController getPlayerData() {

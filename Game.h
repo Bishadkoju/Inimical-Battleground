@@ -9,14 +9,19 @@
 #include"Player.h"
 #include "Arena.h"
 #include "playerController.h"
-#include "Client.h"
-#include "Server.h"
+#include "GameClient.h"
+#include "GameServer.h"
+//#include "Server.h"
+//#include "Client.h"
 class Game
 {
 protected:
 	bool isGameOver;
+	bool isPlayerOne;
 	Arena arena1;
 	Player p,e;
+	GameServer server;
+	GameClient client;
 	sf::RenderWindow window;
 	int m_width, m_height;
 	sf::Texture texture, brick,gOver,gWin,gLose;
@@ -29,7 +34,8 @@ protected:
 	sf::CircleShape shape;
 	
 public:
-	Game(int width,int height);
+	Game();
+	Game(int width,int height,std::string ip,bool isPlayer1);
 	void run();
 	void handleKeyboardInput(sf::Keyboard::Key key, bool isPressed);
 	void processEvents();

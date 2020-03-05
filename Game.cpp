@@ -1,8 +1,12 @@
 #include "Game.h"
-Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical BattleGrounds",sf::Style::Fullscreen)
-//Game::Game(int width, int height) : window(sf::VideoMode(width, height), "Inimical BattleGrounds", sf::Style::Fullscreen)
+Game::Game(int width, int height,std::string Ip,bool isPlayer1)
+	:window(sf::VideoMode(width, height),"Inimical BattleGrounds",sf::Style::Fullscreen),
+	isPlayerOne(isPlayer1),
+	server(isPlayer1 ? 11000 : 10000),
+	client(Ip, isPlayer1 ? 10000 : 11000)
+
 {
-	//std::cout<<ip<<std::endl;
+	std::cout<<Ip<<"Player 1"<<isPlayer1<<std::endl;
 	//window.setFramerateLimit(120);
 	m_height = height;
 	m_width=width;
@@ -103,8 +107,25 @@ void Game::update(sf::Time deltaTime)
 {
 	//isGameOver = p.isAlive || e.isAlive;
 	if (!isGameOver) {
-		p.update(deltaTime, userController, e);
-		e.update(deltaTime, enemyController, p);
+
+			/*p.update(deltaTime, isPlayerOne?userController:enemyController, e);
+			server.update(isPlayerOne ? userController : enemyController);
+			enemyController = client.getRecievedData();
+			e.update(deltaTime, isPlayerOne ? enemyController : userController, p);*/
+		if (isPlayerOne) {
+			p.update(deltaTime, userController, e);
+			server.update(userController);
+			enemyController = client.getRecievedData();
+			e.update(deltaTime, enemyController, p);
+		}
+		else {
+			p.update(deltaTime, enemyController, e);
+			server.update(userController);
+			enemyController = client.getRecievedData();
+			e.update(deltaTime, userController, p);
+		}
+		
+		
 		isGameOver = !(p.isAlive && e.isAlive);
 	}
 	

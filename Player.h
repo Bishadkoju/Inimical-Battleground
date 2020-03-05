@@ -2,7 +2,6 @@
 #include<iostream>
 #include<SFML/Audio.hpp>
 #include<SFML/Graphics.hpp>
-#include<SFML/Graphics.hpp>
 #include<SFML/Network.hpp>
 #include<SFML/Window.hpp>
 #include<cmath>

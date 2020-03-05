@@ -1,8 +1,6 @@
-﻿  Connect.cpp
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.h(12,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(30,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(31,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(56,96): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+﻿  MainMenu.cpp
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(110,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -11,7 +9,7 @@ D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(56,96): war
           [
               T=float
           ]
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(56,62): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(111,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -20,7 +18,4 @@ D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(56,62): war
           [
               T=float
           ]
-  Source.cpp
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.h(12,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
   final Inimical BattleGround.vcxproj -> D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Debug\final Inimical BattleGround.exe

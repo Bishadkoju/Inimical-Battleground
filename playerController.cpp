@@ -9,3 +9,13 @@ playerController::playerController(bool isPressedLeft, bool isPressedRight, bool
 	this->isRightMouseButtonPressed=isRightMouseButtonPressed;
 	this->mousePosition= mousePosition;
 }
+
+playerController::playerController()
+{
+	this->isPressedLeft = false;
+	this->isPressedRight = false;
+	this->isPressedUp = false;
+	this->isLeftMouseButtonPressed = false;
+	this->isRightMouseButtonPressed = false;
+	this->mousePosition = sf::Vector2f(0, 0);
+}

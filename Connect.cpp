@@ -1,8 +1,12 @@
 
 #include "Connect.h"
 
-Connect::Connect(int width, int height) :window(sf::VideoMode(width, height), "Connect")
+Connect::Connect(int width, int height) :window(sf::VideoMode(width, height), "Connect",sf::Style::Fullscreen)
 { //logo
+	for (int i = 0; i < 3; i++){
+		selectedItem[i] = false;
+
+	}
 	font.loadFromFile("pic/Font/DejaVuSans.ttf");
 	ipLocal.setString("Your IP Address is " + sf::IpAddress::getLocalAddress().toString());
 	std::cout << sf::IpAddress::getLocalAddress().toString() << std::endl;
@@ -21,14 +25,14 @@ Connect::Connect(int width, int height) :window(sf::VideoMode(width, height), "C
 	playerInput.setFont(font);
 
 
-	menuItems[0].setString("Server");
-	menuItems[1].setString("Client");
+	menuItems[0].setString("Player 1");
+	menuItems[1].setString("Player 2");
 	menuItems[2].setString("Exit");
 
 	for (int i = 0; i < 3; i++) {
 		menuItems[i].setFont(font);
 		menuItems[i].setPosition(200, 200 + i * 100);
-		menuBox[i].setPosition(150, 180 + i * 100);
+		menuBox[i].setPosition(180, 180 + i * 100);
 		menuBox[i].setFillColor(sf::Color::Green);
 		menuBox[i].setSize(sf::Vector2f(400, 80));
 		menuBox[i].setOutlineColor(sf::Color::Blue);
@@ -39,10 +43,10 @@ Connect::Connect(int width, int height) :window(sf::VideoMode(width, height), "C
 
 void Connect::run()
 {
+	
 	while (window.isOpen())
 	{
 		processInput();
-
 		update();
 		render();
 	}
@@ -77,14 +81,14 @@ void Connect::processInput()
 			if (selectedItem[0] && inputText.getSize()!=0) {
 				std::cout << "server";
 				window.close();
-				//Game g(800, 800, inputText, "server");
-				//g.run();
+				Game g(800, 800, inputText, true);
+				g.run();
 			}
 			else if (selectedItem[1] && inputText.getSize() != 0) {
 				std::cout << "client";
 				window.close();
-				//Game g(800, 800, inputText, "client");
-				//g.run();
+				Game g(800, 800, inputText, false);
+				g.run();
 
 			}else if(selectedItem[2]){
 				window.close();

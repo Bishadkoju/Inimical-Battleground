@@ -11,8 +11,8 @@ menu.display();
 //Game game(800, 800);
 //	game.run();
 
-	//Connect connect(800,800);
-	//connect.run();
+	/*Connect connect(800,800);
+	connect.run();*/
 	return 0;
 }
 

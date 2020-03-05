@@ -78,10 +78,15 @@ void MainMenu::display()
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				//std::cout << "clicked" 
+				
 				window.close();
 				delete audioManager;
-				Game game(1377, 720);
-				game.run();
+				Connect c(800, 800);
+				c.run();
+				
+				/*Game game(1377, 720);
+				game.run();*/
+				
 				std::cout << "exitted" << std::endl;
 			}
 		}

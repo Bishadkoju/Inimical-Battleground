@@ -2,6 +2,7 @@
 #include<SFML/Graphics.hpp>
 #include<iostream>
 #include "Game.h"
+#include "Connect.h"
 
 class MainMenu
 {
