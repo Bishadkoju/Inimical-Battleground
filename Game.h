@@ -5,22 +5,27 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/Network.hpp>
 #include<SFML/Window.hpp>
+#include<string>
 #include"Player.h"
 #include "Arena.h"
 #include "playerController.h"
+#include "Client.h"
+#include "Server.h"
 class Game
 {
 protected:
+	bool isGameOver;
 	Arena arena1;
-	Player p;
+	Player p,e;
 	sf::RenderWindow window;
 	int m_width, m_height;
-	sf::Texture texture, brick;
-	sf::Sprite sprite;
-	playerController userController;
-
-	//sf::VideoMode DesktopMode = sf::VideoMode::getDesktopMode();
-
+	sf::Texture texture, brick,gOver,gWin,gLose;
+	sf::Sprite sprite, sgOver,sgWin,sgLose;
+	playerController userController,enemyController;
+	//Client* client;
+	//Server* server;
+	////sf::VideoMode DesktopMode = sf::VideoMode::getDesktopMode();
+	//int isHost;
 	sf::CircleShape shape;
 	
 public:

@@ -2,6 +2,7 @@
 Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical BattleGrounds",sf::Style::Fullscreen)
 //Game::Game(int width, int height) : window(sf::VideoMode(width, height), "Inimical BattleGrounds", sf::Style::Fullscreen)
 {
+	//std::cout<<ip<<std::endl;
 	//window.setFramerateLimit(120);
 	m_height = height;
 	m_width=width;
@@ -10,8 +11,21 @@ Game::Game(int width, int height):window(sf::VideoMode(width, height), "Inimical
 	{
 
 	}
+	gOver.loadFromFile("pic/gameover.png");
+	gWin.loadFromFile("pic/win.png");
+	gLose.loadFromFile("pic/lose.png");
+		isGameOver = false;
 
+		sgOver.setTexture(gOver);
+		sgLose.setTexture(gLose);
+		sgWin.setTexture(gWin);
+
+		sgOver.setPosition(300, 300);
+		sgWin.setPosition(600, 600);
+		sgLose.setPosition(400, 600);
 	p.setArena(arena1);
+	e.setArena(arena1);
+	//e.setCoordinate(sf::Vector2f(0, 800));
 
 }
 	
@@ -20,7 +34,8 @@ void Game::run()
 {
 	sf::Clock clock;
 	
-	
+	p.initialize("4",sf::Vector2f(300,500));
+	e.initialize("3",sf::Vector2f(400,800));
 	while (window.isOpen())
 	{
 		sf::Time deltaTime = clock.restart();
@@ -86,8 +101,13 @@ void Game::processEvents()
 
 void Game::update(sf::Time deltaTime)
 {
-	p.update(deltaTime,userController);
-	//collision();
+	//isGameOver = p.isAlive || e.isAlive;
+	if (!isGameOver) {
+		p.update(deltaTime, userController, e);
+		e.update(deltaTime, enemyController, p);
+		isGameOver = !(p.isAlive && e.isAlive);
+	}
+	
 	
 }
 
@@ -96,13 +116,21 @@ void Game::render()
 	window.clear();
 	arena1.draw(window);
 	p.draw(window);
-
-	
+	e.draw(window);
 	
 	sf::Sprite sprite(texture);
 	sprite.setPosition(p.getCoordinate().x, p.getCoordinate().y);
 	//window.draw(sprite);
-	
+	if (isGameOver) 
+	{
+		window.draw(sgOver);
+		if (p.isAlive) {
+			window.draw(sgWin);
+		}
+		else {
+			window.draw(sgLose);
+		}
+	}
 	window.display();
 	
 }

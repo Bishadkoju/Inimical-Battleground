@@ -6,6 +6,7 @@
 class MainMenu
 {
 private:
+	Audio *audioManager;
 	sf::RenderWindow window;
 	sf::Texture texture, playTexture, exitTexture, playTexture1, exitTexture1;
 	sf::Sprite sprite, playSprite, exitSprite, playSprite1, exitSprite1;

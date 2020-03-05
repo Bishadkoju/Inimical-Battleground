@@ -11,12 +11,13 @@
 #include "Bullet.h"
 #include "Arena.h";
 #include "playerController.h"
+#include "Audio.h"
 class Player
 {
 private:
 
 	
-
+	
 	// Physics Related Stuffs
 	sf::Vector2f coordinate;
 	sf::Vector2f currentVelocity;
@@ -24,7 +25,7 @@ private:
 	sf::Time deltaTime;
 	sf::Vector2f maxGroundVelocity;
 	sf::Vector2f maxAirVelocity;
-	sf::RectangleShape body;
+	
 	float groundDampingConstant;
 	float airDampingConstant;
 	float gravity;
@@ -33,8 +34,24 @@ private:
 	bool isOnGround;
 	float fuel = 1000;
 
-	std::vector<Bullet> bullets;
+	sf::RectangleShape healthBox;
+	sf::RectangleShape healthOutlineBox;
+	
+	sf::Texture healthTexture;
+	sf::Sprite healthSprite;
+	sf::RectangleShape fuelBox;
+	sf::RectangleShape fuelOutlineBox;
+	sf::Texture fuelTexture;
+	sf::Sprite fuelSprite;
+	sf::Texture ammoTexture;
+	sf::Sprite ammoSprite;
+
+
+
+	
 	sf::Clock bulletClock;
+	sf::Texture bulletTexture;
+	sf::Sprite bulletSprite[6];
 	
 	// Render Related
 	bool facingRight;
@@ -44,6 +61,8 @@ private:
 	sf::Texture lhand, rhand;
 	sf::Sprite spritePlayer, playerHandLeft, playerHandRight;
 	float scale;
+
+	Audio audioManager;
 
 	Arena *arena1;
 
@@ -57,7 +76,7 @@ private:
 		standingleft,
 		maxCount
 	};
-
+	
 	Animation animations[int(AnimationIndex::maxCount)];
 	AnimationIndex curAnimation = AnimationIndex::walkingright;
 	bool noKeyWasPressed;
@@ -67,6 +86,11 @@ private:
 	void movePlayer(sf::Vector2f maxVelocity, float dampingConstant);
 	
 public:
+
+	bool isAlive;
+	float health = 100;
+	std::vector<Bullet> bullets;
+	sf::RectangleShape body;
 	sf::Vector2f mouseDirection;
 	sf::Vector2f mousePosition;
 	bool isPressedUp, isPressedLeft, isPressedRight,isCollided;
@@ -80,10 +104,12 @@ public:
 	sf::Clock reloadClock;
 	bool isReloading;
 	
-
+	void bulletHit(float damagePoints);
 	void setBulletDir();
 	Player();
-	void update(sf::Time,playerController userController);
+	void initialize(std::string avatarIndex,sf::Vector2f startingCoordinate);
+	//Player(std::string avatarIndex)
+	void update(sf::Time,playerController userController,Player &enemy);
 	void setCoordinate(sf::Vector2f);
 	void setCoordinate(float x, float y);
 

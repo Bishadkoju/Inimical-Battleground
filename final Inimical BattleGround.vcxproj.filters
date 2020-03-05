@@ -22,6 +22,12 @@
     <Filter Include="pic\font">
       <UniqueIdentifier>{6e221eca-cc2f-4cbf-b13c-f24821f325e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AudioAssets">
+      <UniqueIdentifier>{8a189e2c-a6da-40f5-be2c-a207674714a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{fa034784-bbbf-4cd3-acbc-dbc8a52f611c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Connect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -75,6 +87,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Connect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -124,10 +145,32 @@
     <Image Include="pic\font\play1.png">
       <Filter>pic\font</Filter>
     </Image>
+    <Image Include="pic\gameover.png">
+      <Filter>pic</Filter>
+    </Image>
+    <Image Include="pic\win.png">
+      <Filter>pic</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="pic\font\Splatch.ttf">
       <Filter>pic\font</Filter>
     </Font>
+    <Font Include="pic\font\DejaVuSans.ttf">
+      <Filter>pic\font</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="AudioAssets\gun.wav">
+      <Filter>AudioAssets</Filter>
+    </Media>
+    <Media Include="AudioAssets\gun_shot.mp3">
+      <Filter>AudioAssets</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AudioAssets\splash.aac">
+      <Filter>AudioAssets</Filter>
+    </None>
   </ItemGroup>
 </Project>

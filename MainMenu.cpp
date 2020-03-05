@@ -1,8 +1,11 @@
 
 #include "MainMenu.h"
 
-MainMenu::MainMenu(int width, int height) :window(sf::VideoMode(width, height), "Main",sf::Style::Fullscreen)
+MainMenu::MainMenu(int width, int height) :window(sf::VideoMode(width,height), "Main",sf::Style::Fullscreen)
 { //logo
+	audioManager = new Audio(100);
+	audioManager->load(Theme, "AudioAssets/theme.wav");
+	audioManager->playSound(Theme);
 	texture.loadFromFile("pic/font/logo.png");
 	if (!texture.loadFromFile("pic/font/logo.png"))
 	{
@@ -76,10 +79,10 @@ void MainMenu::display()
 			{
 				//std::cout << "clicked" 
 				window.close();
-				Game game(800, 800);
+				delete audioManager;
+				Game game(1377, 720);
 				game.run();
-				
-
+				std::cout << "exitted" << std::endl;
 			}
 		}
 		if (isSpriteHover(exitSprite1.getGlobalBounds()))

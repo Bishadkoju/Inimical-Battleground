@@ -152,8 +152,10 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Arena.cpp" />
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Connect.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -163,10 +165,13 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Arena.h" />
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Connect.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Networking.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerController.h" />
   </ItemGroup>
@@ -182,13 +187,23 @@
     <Image Include="pic\font\logo.png" />
     <Image Include="pic\font\play.png" />
     <Image Include="pic\font\play1.png" />
+    <Image Include="pic\gameover.png" />
     <Image Include="pic\newarena.png" />
     <Image Include="pic\newarena1.png" />
     <Image Include="pic\newarena2.png" />
     <Image Include="pic\right3.png" />
+    <Image Include="pic\win.png" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="pic\font\DejaVuSans.ttf" />
     <Font Include="pic\font\Splatch.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="AudioAssets\gun.wav" />
+    <Media Include="AudioAssets\gun_shot.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AudioAssets\splash.aac" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

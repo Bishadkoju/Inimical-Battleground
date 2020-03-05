@@ -12,7 +12,7 @@ private:
 	float time = 0.0f;
 public:
 	Animation();
-	Animation(int startingX, int startingY, int width, int height, std::string dir);
+	Animation(int startingX, int startingY, int width, int height, std::string dir,std::string avatarIndex);
 	void applySprite(sf::Sprite& s)const;
 	void update(sf::Time dt);
 	void nxtUpdate();

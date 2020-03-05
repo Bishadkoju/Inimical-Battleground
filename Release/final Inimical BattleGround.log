@@ -1,6 +1,6 @@
-﻿  MainMenu.cpp
+﻿  Connect.cpp
 D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.h(12,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(102,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(33,84): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -9,7 +9,25 @@ D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(102,50): w
           [
               T=float
           ]
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(103,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(33,56): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(59,106): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Connect.cpp(59,78): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -19,8 +37,8 @@ D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(103,50): w
               T=float
           ]
   Generating code
-  2 of 196 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+  4 of 112 functions ( 3.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   final Inimical BattleGround.vcxproj -> D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Release\final Inimical BattleGround.exe

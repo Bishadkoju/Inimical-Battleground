@@ -10,6 +10,11 @@ Bullet::Bullet(sf::Vector2f startingCoordinate, sf::Vector2f direction, float ve
 	body.setFillColor(sf::Color(255, 0, 0, 255));
 }
 
+Bullet::~Bullet()
+{
+	//std::cout << "Bullet Destroyed" << std::endl;
+}
+
 
 void Bullet::update(sf::Time deltaTime)
 {

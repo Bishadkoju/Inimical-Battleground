@@ -1,17 +1,35 @@
 #include "Player.h"
 
-Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),isCollided(false),isOnGround(false)
+Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),isCollided(false),isOnGround(false),audioManager(100),isAlive(true)
 {
-	
-	/*isPressedLeft = false;
-	isPressedRight = false;
-	isPressedUp = false;
-	isCollided = false;
-	isOnGround = false;*/
-	/*this->arena1 = &arena1;
-	this->noOfBlocks = this->arena1->noOfBlocks;*/
+	audioManager.load(PlayerFiring, "AudioAssets/gun.wav");
+	audioManager.load(PlayerReloading, "AudioAssets/gunReload.wav");
+	healthTexture.loadFromFile("pic/avatar/health.png");
+	fuelTexture.loadFromFile("pic/avatar/fuel.png");
 
-	totalBullets = 6;
+	healthBox.setSize(sf::Vector2f(health / 2.f, 5.f));
+	//healthBox.setFillColor(sf::Color::Red);
+	healthOutlineBox.setSize(sf::Vector2f(health / 2.f, 7.5f));
+
+	fuelBox.setSize(sf::Vector2f(fuel / 20.f, 7.5f));
+	fuelOutlineBox.setSize(sf::Vector2f(fuel / 20.f, 7.5f));
+	bulletTexture.loadFromFile("pic/avatar/bullet.png");
+	ammoTexture.loadFromFile("pic/avatar/reload.png");
+
+	healthSprite.setTexture(healthTexture);
+	healthSprite.setScale(0.01, 0.01);
+
+	fuelSprite.setTexture(fuelTexture);
+	fuelSprite.setScale(0.05, 0.05);
+
+	for (int i = 0; i < 6; i++) {
+		bulletSprite[i].setTexture(bulletTexture);
+		bulletSprite[i].setScale(0.02, 0.02);
+	}
+	ammoSprite.setTexture(ammoTexture);
+	ammoSprite.setScale(0.1, 0.1);
+
+	totalBullets = 36;
 	bulletsPerRoundMaximum = 6;
 	bulletsOnRound = 6;
 	
@@ -25,8 +43,8 @@ Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),i
 	targetVelocity.x = 0;
 	targetVelocity.y = 0;
 	maxGroundVelocity.x =20;
-	maxAirVelocity.x = 60;
-	maxAirVelocity.y = 80;
+	maxAirVelocity.x = 40;
+	maxAirVelocity.y = 70;
 	thrustValue = 80;
 
 	texture.loadFromFile("pic/army1.png");
@@ -46,20 +64,9 @@ Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),i
 	facingRight = true;
 	//facingLeft = false;
 	//animations spritesheet
-	animations[int(AnimationIndex::flyingright)] = Animation(0, 152, 95, 150, "right");
-	animations[int(AnimationIndex::flyingleft)] = Animation(0, 152, 95, 150, "left");
-	animations[int(AnimationIndex::walkingright)] = Animation(0, 0, 95, 150, "right");
-	animations[int(AnimationIndex::walkingleft)] = Animation(0, 0, 95, 150, "left");
-	animations[int(AnimationIndex::standingright)] = Animation(0, 0, 95, 150, "stillright");
-	animations[int(AnimationIndex::standingleft)] = Animation(0, 167, 95, 150, "stillleft");
-	lhand.loadFromFile("pic/rhandinverse.png");
-	rhand.loadFromFile("pic/rhand.png");//animations[int(AnimationIndex::standing)] = Animation(0, 0, 95, 150, "left", noKeyWasPressed);
 	
-	playerHandLeft.setTexture(lhand);
-	playerHandRight.setTexture(rhand);
-	spritePlayer.setScale(scale, scale);
-	playerHandLeft.setScale(scale, scale);
-	playerHandRight.setScale(scale,scale);
+
+	
 
 	//arena_blocks[0].setFillColor(sf::Color(100, 250, 50));
 	//arena_blocks[0].setSize(sf::Vector2f(100, 50));
@@ -67,9 +74,28 @@ Player::Player():isPressedLeft(false),isPressedRight(false),isPressedUp(false),i
 
 }
 
+void Player::initialize(std::string avatarIndex,sf::Vector2f startingCoordinate)
+{
+	animations[int(AnimationIndex::flyingright)] = Animation(0, 152, 95, 150, "right",avatarIndex);
+	animations[int(AnimationIndex::flyingleft)] = Animation(0, 152, 95, 150, "left", avatarIndex);
+	animations[int(AnimationIndex::walkingright)] = Animation(0, 0, 95, 150, "right", avatarIndex);
+	animations[int(AnimationIndex::walkingleft)] = Animation(0, 0, 95, 150, "left", avatarIndex);
+	animations[int(AnimationIndex::standingright)] = Animation(0, 0, 95, 150, "stillright", avatarIndex);
+	animations[int(AnimationIndex::standingleft)] = Animation(0, 167, 95, 150, "stillleft", avatarIndex);
+	lhand.loadFromFile("pic/avatar/a" + avatarIndex + "lefthand1.png");
+	rhand.loadFromFile("pic/avatar/a" + avatarIndex + "righthand.png");//animations[int(AnimationIndex::standing)] = Animation(0, 0, 95, 150, "left", noKeyWasPressed);
+
+	playerHandLeft.setTexture(lhand);
+	playerHandRight.setTexture(rhand);
+	spritePlayer.setScale(scale, scale);
+	playerHandLeft.setScale(scale, scale);
+	playerHandRight.setScale(scale, scale);
+	coordinate = startingCoordinate;
+}
 
 
-void Player::update(sf::Time deltaTime,playerController userController)
+
+void Player::update(sf::Time deltaTime,playerController userController,Player& enemy)
 {
 	
 	this->deltaTime = deltaTime;
@@ -99,12 +125,15 @@ void Player::update(sf::Time deltaTime,playerController userController)
 
 	if (isLeftMouseButtonPressed && bulletClock.getElapsedTime().asSeconds()>0.4f && bulletsOnRound>0 && !isReloading) {
 		if (facingRight == true) {
-			bullets.emplace_back(Bullet(playerHandRight.getPosition(), mouseDirection, 1000, 50));
+			bullets.emplace_back(Bullet(playerHandRight.getPosition(), mouseDirection, 1000, 0.2));
+			
+			audioManager.playSound(PlayerFiring);
 		}
 		else {
 			sf::Vector2f temp = playerHandLeft.getPosition();
 			temp.x=playerHandLeft.getPosition().x ;
-			bullets.emplace_back(Bullet(temp, mouseDirection, 1000, 50));
+			bullets.emplace_back(Bullet(temp, mouseDirection, 1000, 0.2));
+			audioManager.playSound(PlayerFiring);
 		}
 		bulletsOnRound--;
 		bulletClock.restart();
@@ -112,6 +141,7 @@ void Player::update(sf::Time deltaTime,playerController userController)
 	}
 	if (isRightMouseButtonPressed && (bulletsOnRound<bulletsPerRoundMaximum) && !isReloading) {
 		isReloading = true;
+		audioManager.playSound(PlayerReloading);
 		reloadClock.restart();
 	}
 		
@@ -131,17 +161,22 @@ void Player::update(sf::Time deltaTime,playerController userController)
 
 
 
-
+		int i = 0;
 		for (auto  &bullet : bullets)
 		{
 			bullet.update(deltaTime);
 			for (auto& block : arena1->blocks) {
 				if (bullet.body.getGlobalBounds().intersects(block.getGlobalBounds())) {
-					std::cout << "collide" << std::endl;
+					bullets.erase(bullets.begin() + i);
+					//std::cout << "collide" << std::endl;
 					//a	delete& bullet;
 					//bullet.destroy();
 				}
+				if (bullet.body.getGlobalBounds().intersects(enemy.body.getGlobalBounds())) {
+					enemy.bulletHit(bullet.damagePoints);
+				}
 			}
+			i++;
 
 		}
 	
@@ -150,7 +185,7 @@ void Player::update(sf::Time deltaTime,playerController userController)
 
 	
 	
-	for (const auto block : arena1->blocks) {
+	for (const auto &block : arena1->blocks) {
 		handlePlayerCollision(block);
 	}
 	/*for (int i = 0; i < noOfBlocks; i++) {
@@ -158,7 +193,9 @@ void Player::update(sf::Time deltaTime,playerController userController)
 	}*/
 
 
-	
+	if (coordinate.y > 1200) {
+		isAlive = false;
+	}
 }
 void Player::setCoordinate(sf::Vector2f coordinate)
 {
@@ -207,6 +244,43 @@ float Player::interpolateVelocity(float target, float current, float dampingFact
 
 void Player::draw(sf::RenderWindow& window)
 {
+	
+	//healthbox position
+	healthBox.setPosition(body.getPosition().x, body.getPosition().y - 30);
+	healthOutlineBox.setPosition(body.getPosition().x, body.getPosition().y - 31);
+	healthOutlineBox.setFillColor(sf::Color::Black);
+	healthBox.setSize(sf::Vector2f(health / 2.f, 5.f));
+	//health sprite
+	healthSprite.setPosition(body.getPosition().x - 15, body.getPosition().y - 33);
+	//fuelBox position
+	fuelBox.setPosition(body.getPosition().x, body.getPosition().y - 15);
+	fuelBox.setFillColor(sf::Color::Blue);
+	fuelOutlineBox.setPosition(body.getPosition().x, body.getPosition().y - 16);
+	fuelOutlineBox.setFillColor(sf::Color::Black);
+	fuelBox.setSize(sf::Vector2f(fuel / 20.f, 5.f));
+	//fuel sprite
+	fuelSprite.setPosition(body.getPosition().x - 13, body.getPosition().y - 18);
+
+	ammoSprite.setPosition(body.getPosition().x - 15, body.getPosition().y - 50);
+	for (int i = 0; i < bulletsOnRound; i++) {
+		bulletSprite[i].setPosition(body.getPosition().x + i * 6, body.getPosition().y - 48);
+		window.draw(bulletSprite[i]);
+	}
+
+	window.draw(fuelOutlineBox);
+	window.draw(fuelBox);
+	window.draw(fuelSprite);
+	window.draw(ammoSprite);
+	
+
+	window.draw(healthOutlineBox);
+	window.draw(healthBox);
+	window.draw(healthSprite);
+
+
+
+
+
 	for (auto& bullet : bullets)
 	{
 		bullet.draw(window);
@@ -228,10 +302,21 @@ void Player::draw(sf::RenderWindow& window)
 	}
 	if (!isOnGround) {
 		if (((isPressedUp ||isPressedLeft ||isPressedRight) && !facingRight)) {
-			curAnimation = AnimationIndex::flyingleft;
+			if(isPressedUp) {
+				curAnimation = AnimationIndex::flyingleft;
+			}
+			if (fuel == 0) {
+				curAnimation = AnimationIndex::standingleft;
+			}
 		}
 		if (((isPressedUp || isPressedLeft || isPressedRight) && facingRight)) {
-			curAnimation = AnimationIndex::flyingright;
+			
+			if (isPressedUp) {
+				curAnimation = AnimationIndex::flyingright;
+			}
+			if (fuel == 0) {
+				curAnimation = AnimationIndex::standingright;
+			}
 		}
 	}
 
@@ -239,15 +324,10 @@ void Player::draw(sf::RenderWindow& window)
 		animations[int(curAnimation)].update(deltaTime);
 	}
 	animations[int(curAnimation)].applySprite(spritePlayer);
-	body.setFillColor(sf::Color(100, 250, 50));
+	//body.setFillColor(sf::Color(100, 250, 50));
 	//body.setSize(sf::Vector2f(100, 150));
-	window.draw(body);
+	//window.draw(body);
 
-	
-
-
-	
-	
 	spritePlayer.setPosition(getCoordinate().x-5, getCoordinate().y);
 	window.draw(spritePlayer);
 
@@ -258,14 +338,15 @@ void Player::draw(sf::RenderWindow& window)
 			playerHandLeft.getGlobalBounds().height / 2 + playerHandLeft.getOrigin().y
 			});*/
 
-
-		playerHandLeft.setPosition(getCoordinate().x - 40 + playerHandLeft.getLocalBounds().width,
-			getCoordinate().y + 63 + playerHandLeft.getLocalBounds().height);
+		playerHandLeft.setOrigin(playerHandLeft.getLocalBounds().left, playerHandLeft.getLocalBounds().height / 1.5);
+		playerHandLeft.setPosition(body.getPosition().x + body.getLocalBounds().width-8,
+			body.getPosition().y + 30 );
 		window.draw(playerHandLeft);
 	}
 	if (facingRight)
 	{
-		playerHandRight.setPosition(spritePlayer.getPosition().x + spritePlayer.getLocalBounds().height*0.15*scale, spritePlayer.getPosition().y +spritePlayer.getLocalBounds().width*0.75*scale);
+		playerHandRight.setOrigin(playerHandRight.getLocalBounds().left, playerHandRight.getLocalBounds().height / 2.5);
+		playerHandRight.setPosition(body.getPosition().x+1.2,body.getPosition().y +29);
 		window.draw(playerHandRight);
 	}
 
@@ -340,7 +421,7 @@ void Player::movePlayer(sf::Vector2f maxVelocity, float dampingConstant)
 	if (isPressedUp) {
 		if (fuel>100||(fuel>1 &&currentVelocity.y<0)) {
 			targetVelocity.y -= deltaTime.asSeconds() * thrustValue;
-			fuel -= thrustValue*5 * deltaTime.asSeconds();
+			fuel -= thrustValue*3 * deltaTime.asSeconds();
 		}
 		else {
 			fuel -= thrustValue * 5 * deltaTime.asSeconds();
@@ -359,10 +440,21 @@ void Player::movePlayer(sf::Vector2f maxVelocity, float dampingConstant)
 	coordinate.y += currentVelocity.y * 5 * deltaTime.asSeconds();
 	//spritePlayer.move(currentVelocity.x * 5 * deltaTime.asSeconds(), currentVelocity.y * 5 * deltaTime.asSeconds());
 	body.setPosition(coordinate);
+	//mView.setSize(500, 500);
+	//mView.setCenter(coordinate);
 }
 
 
 
+
+void Player::bulletHit(float damagePoints)
+{
+	this->health-= damagePoints;
+	std::cout << health << std::endl;
+	if (health < 0) {
+		isAlive = false;
+	}
+}
 
 void Player::setBulletDir()
 {
