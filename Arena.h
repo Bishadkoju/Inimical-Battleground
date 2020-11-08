@@ -1,12 +1,19 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
+
+#include "Nodes.h"
 #include<iostream>
 class Arena
 {
 public:
 	static constexpr int noOfBlocks=34;
 	sf::RectangleShape blocks[noOfBlocks];
+	std::vector<Nodes*> node_object;
+	sf::RectangleShape limit_box;
+	int step=43;
+	std::vector<sf::Vector2f>direction;
+	Nodes* startingNode;
 	//sf::Vector2f sizes[noOfBlocks], positions[noOfBlocks];
 	//sf::Vector2f mp;
 	sf::Vector2f sizes[noOfBlocks] = {
@@ -31,6 +38,11 @@ public:
 	void draw(sf::RenderWindow &window);
 	sf::Texture textureBackImag;
 	sf::Sprite spriteBackGroundImage;
-	
+	bool is_freespace(sf::Vector2f position);
+	bool nodeExists(sf::Vector2f position);
+	Nodes* getnode(sf::Vector2f position);
+	void generateNode(Nodes *self);
+	Nodes* createNode(sf::Vector2f position);
+	Nodes* getNodeById(int id);
 };
 

@@ -160,6 +160,7 @@
     <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Nodes.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerController.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Networking.h" />
+    <ClInclude Include="Nodes.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerController.h" />
   </ItemGroup>

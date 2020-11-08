@@ -1,21 +1,24 @@
-﻿  MainMenu.cpp
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(110,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+﻿  Arena.cpp
+D:\c++\IB\Arena.cpp(9,35): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\c++\IB\Arena.cpp(18,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
-          [
-              T=int
-          ]
-          and
           [
               T=float
           ]
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(111,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+D:\c++\IB\Arena.cpp(19,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
-          [
-              T=int
-          ]
-          and
           [
               T=float
           ]
-  final Inimical BattleGround.vcxproj -> D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Debug\final Inimical BattleGround.exe
+D:\c++\IB\Arena.cpp(20,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB\Arena.cpp(21,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB\Arena.cpp(111,20): warning C4018: '<': signed/unsigned mismatch
+  final Inimical BattleGround.vcxproj -> D:\c++\IB\Debug\final Inimical BattleGround.exe

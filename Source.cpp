@@ -6,10 +6,9 @@
 
 int main()
 {
-MainMenu menu(800, 800);
-menu.display();
-//Game game(800, 800);
-//	game.run();
+//MainMenu menu(800, 800);
+//menu.display();
+	Game game(800, 800,"Hello",true);  game.run();
 
 	/*Connect connect(800,800);
 	connect.run();*/
