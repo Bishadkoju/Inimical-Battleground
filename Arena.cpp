@@ -19,6 +19,10 @@ Arena::Arena()
 	direction.push_back(sf::Vector2f(step, 0));
 	direction.push_back(sf::Vector2f(0, -step));
 	direction.push_back(sf::Vector2f(-step, 0));
+	direction.push_back(sf::Vector2f(-step, step));
+	direction.push_back(sf::Vector2f(-step, -step));
+	direction.push_back(sf::Vector2f(step, -step));
+	direction.push_back(sf::Vector2f(step, step));
 
 	for (int i = 0; i < noOfBlocks; i++)
 	{
@@ -30,6 +34,7 @@ Arena::Arena()
 	startingNode=createNode(sf::Vector2f(100, 100));
 	node_object.push_back(startingNode);
 	generateNode(startingNode);
+	startSearch(node_object[50],node_object[60]);
 }
 
 void Arena::draw(sf::RenderWindow& window)
@@ -48,7 +53,7 @@ void Arena::draw(sf::RenderWindow& window)
 	{
 		node->draw(window);
 	}
-	for (const auto node : node_object)
+	/*for (const auto node : node_object)
 	{
 		for (const auto neighbour : node->neighbours)
 		{
@@ -61,6 +66,15 @@ void Arena::draw(sf::RenderWindow& window)
 				window.draw(line, 2, sf::Lines);
 			}
 		}
+	}*/
+	for (int i = 0; i < drawPath.size()-1; i++)
+	{
+		sf::Vertex line[]
+		{
+			sf::Vertex(drawPath[i]->getPosition()),
+			sf::Vertex(drawPath[i + 1]->getPosition())
+		};
+		window.draw(line, 2, sf::Lines);
 	}
 }
 
@@ -152,3 +166,102 @@ Nodes* Arena::getNodeById(int id)
 	}
 	return NULL;
 }
+
+Nodes* Arena::getNearestNode(sf::Vector2f playerPosition)
+{
+	float shortDistance;
+	Nodes* nearestNode = node_object[0];
+	shortDistance = pow(playerPosition.x - node_object[0]->getPosition().x, 2) + pow(playerPosition.y - node_object[0]->getPosition().y, 2);
+	for (const auto node : node_object)
+	{
+		if (shortDistance > (pow(playerPosition.x - node->getPosition().x, 2) + pow(playerPosition.y - node->getPosition().y, 2)))
+		{
+			shortDistance = pow(playerPosition.x - node->getPosition().x, 2) + pow(playerPosition.y - node->getPosition().y, 2);
+			nearestNode = node;
+		}
+	}
+	return nearestNode;
+}
+
+//Implementation for A*
+float Arena::calculateDistance(Nodes* currentNode, Nodes* targetedNode)
+{
+	float xDist, yDist;
+	xDist = abs(currentNode->pos.x - targetedNode->pos.x);
+	yDist = abs(currentNode->pos.y - targetedNode->pos.y);
+	xDist *= xDist;
+	yDist *= yDist;
+	return sqrt(xDist + yDist);
+}
+
+void Arena::startSearch(Nodes* startNode, Nodes* goalNode)
+{
+	this->startNode = startNode;
+	this->goalNode = goalNode;
+	Nodes* currentNode{ startNode };
+	currentNode->gValue = 0;
+	currentNode->setHValue(calculateDistance(startNode, goalNode));
+	currentNode->setFValue();
+	openList.emplace_back(startNode);
+	while (currentNode!=goalNode)
+	{
+		currentNode = openList.front();
+		for (int i=1;i<openList.size();++i)
+		{
+			if (openList[i]->getFValue() < currentNode->getFValue() ||
+				openList[i]->getFValue() == currentNode->getFValue() && openList[i]->hValue == currentNode->hValue)
+			{
+				currentNode = openList[i];
+			}
+		}
+		for (int i = 0; i < openList.size(); ++i)
+		{
+			if (openList[i] == currentNode)
+			{
+				openList.erase(openList.begin() + i);
+				continue;
+			}
+		}
+		closedList.emplace_back(currentNode);
+		if (currentNode == goalNode)
+		{
+			tracePath(currentNode);
+			return;
+		}
+		for (auto &neighbourId : currentNode->neighbours)
+		{
+			Nodes* neighbourNode{ getNodeById(neighbourId) };
+			if (!isInVectorList(neighbourNode, closedList))
+			{
+				int tentativeCostToNeighbour = currentNode->gValue + calculateDistance(currentNode, neighbourNode);
+				if (tentativeCostToNeighbour < neighbourNode->gValue ||!isInVectorList(neighbourNode,openList))
+				{
+					neighbourNode->setParentNode(currentNode);
+					neighbourNode->setGValue(tentativeCostToNeighbour);
+					neighbourNode->setHValue(calculateDistance(neighbourNode, goalNode));
+					neighbourNode->setFValue();
+					if (!isInVectorList(neighbourNode, openList))
+					{
+						openList.emplace_back(neighbourNode);
+					}
+				}
+			}
+		}
+	}
+}
+
+bool Arena::isInVectorList(Nodes* node, std::vector<Nodes*> nodeList)
+{
+	return std::find(nodeList.begin(), nodeList.end(), node) != nodeList.end();
+}
+
+void Arena::tracePath(Nodes* targetNode)
+{
+	while (targetNode != startNode)
+	{
+		drawPath.push_back(targetNode);
+		targetNode = targetNode->parentNode;
+	}
+	std::reverse(drawPath.begin(), drawPath.end());
+}
+

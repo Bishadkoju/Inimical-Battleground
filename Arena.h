@@ -14,6 +14,7 @@ public:
 	int step=43;
 	std::vector<sf::Vector2f>direction;
 	Nodes* startingNode;
+	std::vector<Nodes*> drawPath;
 	//sf::Vector2f sizes[noOfBlocks], positions[noOfBlocks];
 	//sf::Vector2f mp;
 	sf::Vector2f sizes[noOfBlocks] = {
@@ -35,7 +36,7 @@ public:
 		sf::Vector2f(365,890),sf::Vector2f(707,727),sf::Vector2f(1191,557),sf::Vector2f(1613,347)
 	};
 	Arena();
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow& window);
 	sf::Texture textureBackImag;
 	sf::Sprite spriteBackGroundImage;
 	bool is_freespace(sf::Vector2f position);
@@ -44,5 +45,15 @@ public:
 	void generateNode(Nodes *self);
 	Nodes* createNode(sf::Vector2f position);
 	Nodes* getNodeById(int id);
+	Nodes* getNearestNode(sf::Vector2f playerPosition);
+	//for pathfinding
+	std::vector<Nodes*> openList;
+	std::vector<Nodes*> closedList;
+	Nodes* startNode;
+	Nodes* goalNode;
+	float calculateDistance(Nodes* currentNode, Nodes* targetedNode);
+	void startSearch(Nodes* startNode, Nodes* goalNode);
+	bool isInVectorList(Nodes* node, std::vector<Nodes*> nodeList);
+	void tracePath(Nodes* targetNode);
 };
 

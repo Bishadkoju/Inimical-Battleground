@@ -16,6 +16,7 @@ Nodes::Nodes(sf::Vector2f position)
 	id = counter;
 	counter++;
 	pos = position;
+	parentNode = NULL;
 	body.setPosition(position);
 }
 
@@ -50,3 +51,29 @@ sf::Vector2f Nodes::getPosition()
 {
 	return pos;
 }
+
+void Nodes::setGValue(const int gValue)
+{
+	this->gValue = gValue;
+}
+
+void Nodes::setHValue(const int hValue)
+{
+	this->hValue = hValue;
+}
+
+void Nodes::setFValue()
+{
+	fValue = gValue + hValue;
+}
+
+float Nodes::getFValue()
+{
+	return fValue;
+}
+
+void Nodes::setParentNode(Nodes* node)
+{
+	parentNode = node;
+}
+

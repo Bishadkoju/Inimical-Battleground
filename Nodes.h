@@ -2,14 +2,18 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
 #include<iostream>
+#include<limits>
 class Nodes
 {
 private:
-	sf::Vector2f pos;
-	bool visited;
 	static int counter;
 	int id;
 public:
+	sf::Vector2f pos;
+	float gValue;
+	float hValue;
+	float fValue;
+	Nodes* parentNode;
 	std::vector<int> neighbours;
 	Nodes();
 	~Nodes();
@@ -20,5 +24,10 @@ public:
 	void add_to_neighbours(int id_number);
 	int getId();
 	sf::Vector2f getPosition();
+	void setGValue(const int gValue);
+	void setHValue(const int hValue);
+	void setFValue();
+	float getFValue();
+	void setParentNode(Nodes* node);
 };
 

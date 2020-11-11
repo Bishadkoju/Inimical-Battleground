@@ -1,24 +1,70 @@
 ﻿  Arena.cpp
-D:\c++\IB\Arena.cpp(9,35): warning C4305: 'argument': truncation from 'double' to 'float'
-D:\c++\IB\Arena.cpp(18,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\c++\IB_final\Arena.cpp(9,35): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\c++\IB_final\Arena.cpp(18,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\c++\IB\Arena.cpp(19,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\c++\IB_final\Arena.cpp(19,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\c++\IB\Arena.cpp(20,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\c++\IB_final\Arena.cpp(20,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\c++\IB\Arena.cpp(21,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\c++\IB_final\Arena.cpp(21,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\c++\IB\Arena.cpp(111,20): warning C4018: '<': signed/unsigned mismatch
-  final Inimical BattleGround.vcxproj -> D:\c++\IB\Debug\final Inimical BattleGround.exe
+D:\c++\IB_final\Arena.cpp(22,42): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(22,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(23,42): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(23,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(24,41): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(24,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(25,41): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(25,35): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\c++\IB_final\Arena.cpp(70,20): warning C4018: '<': signed/unsigned mismatch
+D:\c++\IB_final\Arena.cpp(125,20): warning C4018: '<': signed/unsigned mismatch
+D:\c++\IB_final\Arena.cpp(209,42): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+D:\c++\IB_final\Arena.cpp(215,17): warning C4018: '<': signed/unsigned mismatch
+D:\c++\IB_final\Arena.cpp(223,21): warning C4018: '<': signed/unsigned mismatch
+D:\c++\IB_final\Arena.cpp(242,34): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\c++\IB_final\Arena.cpp(247,48): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+  final Inimical BattleGround.vcxproj -> D:\c++\IB_final\Debug\final Inimical BattleGround.exe
