@@ -34,6 +34,7 @@ protected:
 	sf::CircleShape shape;
 	
 public:
+	sf::Clock searchTimer;
 	Game();
 	Game(int width,int height,std::string ip,bool isPlayer1);
 	void run();

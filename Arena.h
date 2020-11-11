@@ -14,7 +14,6 @@ public:
 	int step=43;
 	std::vector<sf::Vector2f>direction;
 	Nodes* startingNode;
-	std::vector<Nodes*> drawPath;
 	//sf::Vector2f sizes[noOfBlocks], positions[noOfBlocks];
 	//sf::Vector2f mp;
 	sf::Vector2f sizes[noOfBlocks] = {
@@ -47,13 +46,12 @@ public:
 	Nodes* getNodeById(int id);
 	Nodes* getNearestNode(sf::Vector2f playerPosition);
 	//for pathfinding
-	std::vector<Nodes*> openList;
-	std::vector<Nodes*> closedList;
 	Nodes* startNode;
 	Nodes* goalNode;
+	std::vector<Nodes*> currentPath;
 	float calculateDistance(Nodes* currentNode, Nodes* targetedNode);
 	void startSearch(Nodes* startNode, Nodes* goalNode);
 	bool isInVectorList(Nodes* node, std::vector<Nodes*> nodeList);
-	void tracePath(Nodes* targetNode);
+	std::vector<Nodes*> tracePath(Nodes* targetNode);
 };
 

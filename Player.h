@@ -30,7 +30,6 @@ private:
 	float gravity;
 	float elasticConstant;
 	float thrustValue;
-	bool isOnGround;
 	float fuel = 1000;
 
 	sf::RectangleShape healthBox;
@@ -85,7 +84,7 @@ private:
 	void movePlayer(sf::Vector2f maxVelocity, float dampingConstant);
 	
 public:
-
+	bool isOnGround;
 	bool isAlive;
 	float health = 100;
 	std::vector<Bullet> bullets;

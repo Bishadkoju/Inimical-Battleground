@@ -34,7 +34,6 @@ Arena::Arena()
 	startingNode=createNode(sf::Vector2f(100, 100));
 	node_object.push_back(startingNode);
 	generateNode(startingNode);
-	startSearch(node_object[50],node_object[60]);
 }
 
 void Arena::draw(sf::RenderWindow& window)
@@ -67,14 +66,17 @@ void Arena::draw(sf::RenderWindow& window)
 			}
 		}
 	}*/
-	for (int i = 0; i < drawPath.size()-1; i++)
+	if (currentPath.size() > 2)
+	{
+	for (int i = 0; i < currentPath.size()-1; i++)
 	{
 		sf::Vertex line[]
 		{
-			sf::Vertex(drawPath[i]->getPosition()),
-			sf::Vertex(drawPath[i + 1]->getPosition())
+			sf::Vertex(currentPath[i]->getPosition()),
+			sf::Vertex(currentPath[i + 1]->getPosition())
 		};
 		window.draw(line, 2, sf::Lines);
+	}
 	}
 }
 
@@ -191,63 +193,66 @@ float Arena::calculateDistance(Nodes* currentNode, Nodes* targetedNode)
 	yDist = abs(currentNode->pos.y - targetedNode->pos.y);
 	xDist *= xDist;
 	yDist *= yDist;
-	return sqrt(xDist + yDist);
+	return xDist + yDist;
 }
 
 void Arena::startSearch(Nodes* startNode, Nodes* goalNode)
 {
-	this->startNode = startNode;
-	this->goalNode = goalNode;
-	Nodes* currentNode{ startNode };
-	currentNode->gValue = 0;
-	currentNode->setHValue(calculateDistance(startNode, goalNode));
-	currentNode->setFValue();
-	openList.emplace_back(startNode);
-	while (currentNode!=goalNode)
-	{
-		currentNode = openList.front();
-		for (int i=1;i<openList.size();++i)
+		std::vector<Nodes*> openList;
+		std::vector<Nodes*> closedList;
+		this->startNode = startNode;
+		this->goalNode = goalNode;
+		Nodes* currentNode{ startNode };
+		currentNode->gValue = 0;
+		currentNode->setHValue(calculateDistance(startNode, goalNode));
+		currentNode->setFValue();
+		openList.emplace_back(startNode);
+		while (currentNode != goalNode)
 		{
-			if (openList[i]->getFValue() < currentNode->getFValue() ||
-				openList[i]->getFValue() == currentNode->getFValue() && openList[i]->hValue == currentNode->hValue)
+			currentNode = openList.front();
+			for (int i = 1; i < openList.size(); ++i)
 			{
-				currentNode = openList[i];
-			}
-		}
-		for (int i = 0; i < openList.size(); ++i)
-		{
-			if (openList[i] == currentNode)
-			{
-				openList.erase(openList.begin() + i);
-				continue;
-			}
-		}
-		closedList.emplace_back(currentNode);
-		if (currentNode == goalNode)
-		{
-			tracePath(currentNode);
-			return;
-		}
-		for (auto &neighbourId : currentNode->neighbours)
-		{
-			Nodes* neighbourNode{ getNodeById(neighbourId) };
-			if (!isInVectorList(neighbourNode, closedList))
-			{
-				int tentativeCostToNeighbour = currentNode->gValue + calculateDistance(currentNode, neighbourNode);
-				if (tentativeCostToNeighbour < neighbourNode->gValue ||!isInVectorList(neighbourNode,openList))
+				if (openList[i]->getFValue() < currentNode->getFValue() ||
+					openList[i]->getFValue() == currentNode->getFValue() && openList[i]->hValue == currentNode->hValue)
 				{
-					neighbourNode->setParentNode(currentNode);
-					neighbourNode->setGValue(tentativeCostToNeighbour);
-					neighbourNode->setHValue(calculateDistance(neighbourNode, goalNode));
-					neighbourNode->setFValue();
-					if (!isInVectorList(neighbourNode, openList))
+					currentNode = openList[i];
+				}
+			}
+			for (int i = 0; i < openList.size(); ++i)
+			{
+				if (openList[i] == currentNode)
+				{
+					openList.erase(openList.begin() + i);
+					continue;
+				}
+			}
+			closedList.emplace_back(currentNode);
+			if (currentNode == goalNode)
+			{
+				currentPath=tracePath(currentNode);
+				return;
+			
+			}
+			for (auto& neighbourId : currentNode->neighbours)
+			{
+				Nodes* neighbourNode{ getNodeById(neighbourId) };
+				if (!isInVectorList(neighbourNode, closedList))
+				{
+					int tentativeCostToNeighbour = currentNode->gValue + calculateDistance(currentNode, neighbourNode);
+					if (tentativeCostToNeighbour < neighbourNode->gValue || !isInVectorList(neighbourNode, openList))
 					{
-						openList.emplace_back(neighbourNode);
+						neighbourNode->setParentNode(currentNode);
+						neighbourNode->setGValue(tentativeCostToNeighbour);
+						neighbourNode->setHValue(calculateDistance(neighbourNode, goalNode));
+						neighbourNode->setFValue();
+						if (!isInVectorList(neighbourNode, openList))
+						{
+							openList.emplace_back(neighbourNode);
+						}
 					}
 				}
 			}
 		}
-	}
 }
 
 bool Arena::isInVectorList(Nodes* node, std::vector<Nodes*> nodeList)
@@ -255,13 +260,15 @@ bool Arena::isInVectorList(Nodes* node, std::vector<Nodes*> nodeList)
 	return std::find(nodeList.begin(), nodeList.end(), node) != nodeList.end();
 }
 
-void Arena::tracePath(Nodes* targetNode)
+std::vector<Nodes*> Arena::tracePath(Nodes* targetNode)
 {
+	std::vector<Nodes*> drawPath;
 	while (targetNode != startNode)
 	{
 		drawPath.push_back(targetNode);
 		targetNode = targetNode->parentNode;
 	}
 	std::reverse(drawPath.begin(), drawPath.end());
+	return drawPath;
 }
 
