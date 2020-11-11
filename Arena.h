@@ -1,12 +1,19 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
+
+#include "Nodes.h"
 #include<iostream>
 class Arena
 {
 public:
 	static constexpr int noOfBlocks=34;
 	sf::RectangleShape blocks[noOfBlocks];
+	std::vector<Nodes*> node_object;
+	sf::RectangleShape limit_box;
+	int step=43;
+	std::vector<sf::Vector2f>direction;
+	Nodes* startingNode;
 	//sf::Vector2f sizes[noOfBlocks], positions[noOfBlocks];
 	//sf::Vector2f mp;
 	sf::Vector2f sizes[noOfBlocks] = {
@@ -28,9 +35,23 @@ public:
 		sf::Vector2f(365,890),sf::Vector2f(707,727),sf::Vector2f(1191,557),sf::Vector2f(1613,347)
 	};
 	Arena();
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow& window);
 	sf::Texture textureBackImag;
 	sf::Sprite spriteBackGroundImage;
-	
+	bool is_freespace(sf::Vector2f position);
+	bool nodeExists(sf::Vector2f position);
+	Nodes* getnode(sf::Vector2f position);
+	void generateNode(Nodes *self);
+	Nodes* createNode(sf::Vector2f position);
+	Nodes* getNodeById(int id);
+	Nodes* getNearestNode(sf::Vector2f playerPosition);
+	//for pathfinding
+	Nodes* startNode;
+	Nodes* goalNode;
+	std::vector<Nodes*> currentPath;
+	float calculateDistance(Nodes* currentNode, Nodes* targetedNode);
+	void startSearch(Nodes* startNode, Nodes* goalNode);
+	bool isInVectorList(Nodes* node, std::vector<Nodes*> nodeList);
+	std::vector<Nodes*> tracePath(Nodes* targetNode);
 };
 

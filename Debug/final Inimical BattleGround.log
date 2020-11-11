@@ -1,21 +1,3 @@
-﻿  MainMenu.cpp
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Player.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(110,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\MainMenu.cpp(111,50): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-  final Inimical BattleGround.vcxproj -> D:\Bishad\Creation Center\C++\Test\Inimical-Battleground\Debug\final Inimical BattleGround.exe
+﻿  Game.cpp
+D:\c++\IB_final\Player.h(11,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  final Inimical BattleGround.vcxproj -> D:\c++\IB_final\Debug\final Inimical BattleGround.exe

@@ -124,8 +124,12 @@ void Game::update(sf::Time deltaTime)
 			enemyController = client.getRecievedData();
 			e.update(deltaTime, userController, p);
 		}
-		
-		
+		if (searchTimer.getElapsedTime().asSeconds() > 0.2f)
+		{
+			arena1.startSearch(arena1.getNearestNode(p.getCoordinate()), arena1.getNearestNode(e.getCoordinate()));
+			searchTimer.restart();
+			}
+
 		isGameOver = !(p.isAlive && e.isAlive);
 	}
 	

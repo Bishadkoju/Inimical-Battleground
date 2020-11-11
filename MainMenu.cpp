@@ -22,7 +22,7 @@ MainMenu::MainMenu(int width, int height) :window(sf::VideoMode(width,height), "
 
 	}
 	playSprite.setTexture(playTexture);
-	playSprite.setPosition(sf::Vector2f(840, 500));
+	playSprite.setPosition(sf::Vector2f(690, 500));
 	//exit button
 	exitTexture.loadFromFile("pic/font/exit.png");
 	if (!exitTexture.loadFromFile("pic/font/exit.png"))
@@ -30,7 +30,7 @@ MainMenu::MainMenu(int width, int height) :window(sf::VideoMode(width,height), "
 
 	}
 	exitSprite.setTexture(exitTexture);
-	exitSprite.setPosition(sf::Vector2f(840, 600));
+	exitSprite.setPosition(sf::Vector2f(990, 500));
 	//for on mouse hover
 	//on mouse hover on play button
 	playTexture1.loadFromFile("pic/font/play1.png");
@@ -39,7 +39,7 @@ MainMenu::MainMenu(int width, int height) :window(sf::VideoMode(width,height), "
 
 	}
 	playSprite1.setTexture(playTexture1);
-	playSprite1.setPosition(sf::Vector2f(840, 500));
+	playSprite1.setPosition(sf::Vector2f(690, 500));
 	//on mouse hover on exit button
 	exitTexture1.loadFromFile("pic/font/exit1.png");
 	if (!exitTexture1.loadFromFile("pic/font/exit1.png"))
@@ -47,7 +47,7 @@ MainMenu::MainMenu(int width, int height) :window(sf::VideoMode(width,height), "
 
 	}
 	exitSprite1.setTexture(exitTexture1);
-	exitSprite1.setPosition(sf::Vector2f(840, 600));
+	exitSprite1.setPosition(sf::Vector2f(990, 500));
 
 }
 

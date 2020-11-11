@@ -55,7 +55,7 @@ void Animation::applySprite(sf::Sprite& s)const
 
 void Animation::update(sf::Time dt)
 {
-	time += 20 * dt.asSeconds();
+	time += 40 * dt.asSeconds();
 	while (time >= holdTime)
 	{
 		time -= holdTime;
